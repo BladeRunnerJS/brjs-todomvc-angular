@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<@base.tag@/>
+		<meta charset="UTF-8">
+
+		<title>Workbench</title>
+
+		<@css.bundle theme="black" alternateTheme="red" @/>
+
+	</head>
+	<body>
+
+		<@i18n.bundle @/>
+		<@js.bundle @/>
+
+		<script type="text/javascript">
+			var ServiceRegistry = require( 'br/ServiceRegistry' );
+
+			function addEventHubLogger( workbench ) {
+				var eventHub = ServiceRegistry.getService( 'br.event-hub' );
+				var EventHubViewer = require( 'br/workbench/tools/EventHubViewer' );
+				var eventHubViewer = new EventHubViewer( eventHub );
+				workbench.addToLeftWing( eventHubViewer, "EventHub Logging", false );
+			}
+
+			function addModelViewer( model, workbench ) {
+				var KnockoutJsTreeModelFactory = require('br/knockout/workbench/KnockoutJsTreeModelFactory');
+				var PresentationModelViewer = require('br/knockout/workbench/PresentationModelViewer');
+				var presentationModelViewer = new PresentationModelViewer(KnockoutJsTreeModelFactory.createTreeModelFromKnockoutViewModel(model));
+				workbench.addToRightWing(presentationModelViewer, "Visualise Knockout View Model", false);
+			}
+
+			function addComponent( component, workbench  ) {
+				workbench.displayComponent( component, 200, 100 );
+			}
+
+			var Workbench = require( 'br/workbench/ui/Workbench' );
+			var workbench = new Workbench(250, 310);
+			addEventHubLogger( workbench );
+
+var angular = require( 'angular' );
+			var InputDirective = require( 'brjstodo/input/InputDirective' );
+			angular.module('brjstodo', [])
+        .directive('todoInput', function() {
+					return new InputDirective();
+				} );
+
+		</script>
+
+		<style>
+			.ng-workbench {
+				margin-left: 0;
+				margin-top: 30px;
+			}
+		</style>
+
+
+		<div class="ng-workbench" ng-app="brjstodo">
+			<todo-input></todo-input>
+		</div>
+
+		</script>
+	</body>
+</html>
