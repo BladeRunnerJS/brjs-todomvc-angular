@@ -3,12 +3,12 @@
 var ServiceRegistry = require( 'br/ServiceRegistry' )
 
 var InputDirective = function() {
-	var todoService = ServiceRegistry.getService( 'todomvc.storage' );
+	// var todoService = ServiceRegistry.getService( 'todomvc.storage' );
 	var HtmlService = ServiceRegistry.getService( 'br.html-service' )
 
 	this.restrict = 'E';
 	this.replace = true;
-	this.template = HtmlService.getHTMLTemplate( 'brjstodo.ng.input.view-template' ).outerHTML;
+	this.template = HtmlService.getHTMLTemplate( 'brjstodo.input.view-template' ).outerHTML;
 
 	this.controller = function( $scope ) {
 		$scope.newTodo = '';
@@ -19,7 +19,8 @@ var InputDirective = function() {
 			}
 
 			var todoItem = { title: newTodo };
-			todoService.addTodo( todoItem );
+      console.log( todoItem );
+			// todoService.addTodo( todoItem );
 
 			$scope.newTodo = '';
 		}
