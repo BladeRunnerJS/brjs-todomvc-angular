@@ -42,9 +42,9 @@
 			var angular = require( 'angular' );
 			var ItemsDirective = require( 'brjstodo/items/ItemsDirective' );
 			angular.module('brjstodo', [])
-				.directive('todoItems', [ '$filter', function( $filter ) {
-					return new ItemsDirective( $filter );
-				} ] );
+				.directive('todoItems', function() {
+					return new ItemsDirective();
+				} );
 
 			</script>
 
