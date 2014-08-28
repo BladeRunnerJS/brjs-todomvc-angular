@@ -3,7 +3,7 @@
 var angular = require( 'angular' );
 var ServiceRegistry = require( 'br/ServiceRegistry' );
 
-function ItemsDirective( $filter ) {
+function ItemsDirective() {
 	var HtmlService = ServiceRegistry.getService( 'br.html-service' );
 	var todoService = ServiceRegistry.getService( 'todomvc.storage' );
 
@@ -13,18 +13,19 @@ function ItemsDirective( $filter ) {
 
 	this.controller = function( $scope ) {
 		$scope.todos = todoService.getTodos();
-		console.log( $scope.todos );
-
 		$scope.editedTodo = null;
+		$scope.originalTodo = null;
 
-		// $scope.$watch('todos', function (newValue, oldValue) {
-		// 	$scope.remainingCount = $filter('filter')(todos, { completed: false }).length;
-		// 	$scope.completedCount = todos.length - $scope.remainingCount;
-		// 	$scope.allChecked = !$scope.remainingCount; // === 0 nicer?
-		// 	if (newValue !== oldValue) { // This prevents unneeded calls to the local storage
-		// 		//todoStorage.put(todos);
-		// 	}
-		// }, true);
+		updateAllChecked();
+
+		function updateAllChecked() {
+			var todos = todoService.getTodos();
+			var completedCount = 0;
+			todos.forEach(function (todo) {
+				completedCount += ( todo.completed? 1 : 0 );
+			});
+			$scope.allChecked = ( todos.length === completedCount );
+		}
 
 		$scope.editTodo = function (todo) {
 			$scope.editedTodo = todo;
@@ -34,7 +35,7 @@ function ItemsDirective( $filter ) {
 
 		$scope.doneEditing = function (todo) {
 			$scope.editedTodo = null;
-			todo.title = todo.title.trim();		
+			todo.title = todo.title.trim();
 
 			if (!todo.title) {
 				$scope.removeTodo(todo);
@@ -42,6 +43,8 @@ function ItemsDirective( $filter ) {
 			else {
 				todoService.updateTodo( todo );
 			}
+
+			updateAllChecked();
 		};
 
 		$scope.revertEditing = function (todo) {
@@ -53,6 +56,8 @@ function ItemsDirective( $filter ) {
 		$scope.removeTodo = function (todo) {
 			// todos.splice(todos.indexOf(todo), 1);
 			todoService.removeTodo( todo );
+
+			updateAllChecked();
 		};
 
 		$scope.markAll = function (completed) {
