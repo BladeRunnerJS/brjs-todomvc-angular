@@ -3,8 +3,8 @@
 var ServiceRegistry = require( 'br/ServiceRegistry' )
 
 var InputDirective = function() {
-	// var todoService = ServiceRegistry.getService( 'todomvc.storage' );
-	var HtmlService = ServiceRegistry.getService( 'br.html-service' )
+	var todoService = ServiceRegistry.getService( 'todomvc.storage' );
+	var HtmlService = ServiceRegistry.getService( 'br.html-service' );
 
 	this.restrict = 'E';
 	this.replace = true;
@@ -19,8 +19,7 @@ var InputDirective = function() {
 			}
 
 			var todoItem = { title: newTodo };
-      console.log( todoItem );
-			// todoService.addTodo( todoItem );
+      todoService.addTodo( todoItem );
 
 			$scope.newTodo = '';
 		}
