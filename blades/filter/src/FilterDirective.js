@@ -1,5 +1,7 @@
 'use strict';
 
+var ServiceRegistry = require( 'br/ServiceRegistry' );
+
 function FilterDirective() {
 	var HtmlService = ServiceRegistry.getService( 'br.html-service' );
 	var todoService = ServiceRegistry.getService( 'todomvc.storage' );
@@ -25,12 +27,14 @@ function FilterDirective() {
 		}
 
 		$scope.clearCompletedTodos = function () {
-			var todos = this._todoService.getTodos();
-		  todos.forEach( function( todo ) {
-		    if( todo.completed ) {
-		      todoService.removeTodo( todo );
-		    }
-		  } );
+			var todos = todoService.getTodos();
+			var todo, i;
+			for( i = todos.length - 1; i >= 0; --i ) {
+				todo = todos[ i ];
+				if( todo.completed ) {
+					todoService.removeTodo( todo );
+				}
+			}
 		};
 
 		todoService.on( 'todo-added', update );

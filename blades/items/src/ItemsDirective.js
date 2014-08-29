@@ -16,9 +16,7 @@ function ItemsDirective() {
 		$scope.editedTodo = null;
 		$scope.originalTodo = null;
 
-		updateAllChecked();
-
-		function updateAllChecked() {
+		function update() {
 			var todos = todoService.getTodos();
 			var completedCount = 0;
 			todos.forEach(function (todo) {
@@ -26,6 +24,11 @@ function ItemsDirective() {
 			});
 			$scope.allChecked = ( todos.length === completedCount );
 		}
+
+		// Note: could use $scope.$watch here. But that feels like magic.
+		todoService.on( 'todo-added', update );
+		todoService.on( 'todo-updated', update );
+		todoService.on( 'todo-removed', update );
 
 		$scope.editTodo = function (todo) {
 			$scope.editedTodo = todo;
@@ -43,8 +46,6 @@ function ItemsDirective() {
 			else {
 				todoService.updateTodo( todo );
 			}
-
-			updateAllChecked();
 		};
 
 		$scope.revertEditing = function (todo) {
@@ -54,10 +55,7 @@ function ItemsDirective() {
 		};
 
 		$scope.removeTodo = function (todo) {
-			// todos.splice(todos.indexOf(todo), 1);
 			todoService.removeTodo( todo );
-
-			updateAllChecked();
 		};
 
 		$scope.markAll = function (completed) {

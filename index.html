@@ -4,30 +4,38 @@
 		<@base.tag@/>
 		<meta charset="UTF-8">
 
-		<title>My Application</title>
+		<title>BRJS Angular Todo MVC</title>
 
-		<@css.bundle theme="black" alternateTheme="red" @/>
+		<@css.bundle theme="black" @/>
 
 	</head>
 	<body>
 
-		<div class="app">
-			<h1 id="hello-world"></h1>
-			<p>Add any new code for your app to src/brjstodo/App.js</p>
-			<div class="br-logo">
-				<!-- 'unbundled-resources' can be used for any assets you don't want part of the BRJS bundling process. -->
-				<img src="unbundled-resources/br-logo.png" />
-			</div>
+		<div id="todoapp" ng-app="brjstodo">
+			<todo-input></todo-input>
+			<todo-items></todo-items>
+			<todo-filter></todo-filter>
 		</div>
 
 		<@i18n.bundle @/>
     	<!-- dev-minifier can be set to "combined" for all JS content to be bundled with a single request -->
 		<@js.bundle dev-minifier="none" prod-minifier="combined"@/>
 		<script>
-			( function() {
-				var App = require( 'brjstodo/App' );
-				var app = new App();
-			} )();
+			var InputDirective = require( 'brjstodo/input/InputDirective' );
+			var ItemsDirective = require( 'brjstodo/items/ItemsDirective' );
+			var FilterDirective = require( 'brjstodo/filter/FilterDirective' );
+
+			var angular = require( 'angular' );
+			angular.module( 'brjstodo', [] )
+				.directive('todoInput', function() {
+					return new InputDirective();
+				} )
+				.directive('todoItems', function() {
+					return new ItemsDirective();
+				} )
+				.directive('todoFilter', function() {
+					return new FilterDirective();
+				} );
 		</script>
 	</body>
 </html>
