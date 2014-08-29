@@ -1,4 +1,4 @@
-# BladeRunnerJS (BRJS) + AngularJS Todo MVC
+# BRJS + AngularJS Todo MVC
 
 This application provides an example of how AngularJS can be used with BladeRunnerJS to build a modular and scalable application.
 
