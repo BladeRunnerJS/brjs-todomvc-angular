@@ -1,0 +1,2 @@
+depends : jsunitextensions
+exports: Mock4JS

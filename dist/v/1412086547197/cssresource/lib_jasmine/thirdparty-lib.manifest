@@ -1,0 +1,2 @@
+js: caplin-jasmine.js, caplin-JasmineAdapter.js
+exports: jasmine

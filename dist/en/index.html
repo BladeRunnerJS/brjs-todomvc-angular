@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<base href="../"/><!--[if IE]><script type="text/javascript">
+// Fix IE ignoring relative base tags.
+(function() {
+	var baseTag = document.getElementsByTagName('base')[0];
+	baseTag.href = baseTag.href;
+})();
+</script><![endif]-->
+		<meta charset="UTF-8">
+
+		<title>BRJS Angular Todo MVC</title>
+
+		<link rel="stylesheet" href="v/1412086547197/css/common/bundle.css"/>
+<link rel="stylesheet" title="black" href="v/1412086547197/css/black/bundle.css"/>
+
+
+	</head>
+	<body>
+
+		<div id="todoapp" ng-app="brjstodo">
+			<todo-input></todo-input>
+			<todo-items></todo-items>
+			<todo-filter></todo-filter>
+		</div>
+
+		<footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Built with <a href="http://bladerunnerjs.org">BladeRunnerJS</a></p>
+			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+
+		<script type="text/javascript" src="v/1412086547197/i18n/en.js"></script>
+
+    	<!-- dev-minifier can be set to "combined" for all JS content to be bundled with a single request -->
+		<script type='text/javascript' src='v/1412086547197/js/prod/combined/bundle.js'></script>
+
+		<script>
+			var InputDirective = require( 'brjstodo/input/InputDirective' );
+			var ItemsDirective = require( 'brjstodo/items/ItemsDirective' );
+			var FilterDirective = require( 'brjstodo/filter/FilterDirective' );
+
+			var angular = require( 'angular' );
+			angular.module( 'brjstodo', [] )
+				.directive('todoInput', function() {
+					return new InputDirective();
+				} )
+				.directive('todoItems', function() {
+					return new ItemsDirective();
+				} )
+				.directive('todoFilter', function() {
+					return new FilterDirective();
+				} );
+		</script>
+	</body>
+</html>
