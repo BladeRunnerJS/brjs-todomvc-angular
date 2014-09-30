@@ -1,0 +1,19 @@
+.default-filter-blade {
+    background-color: white;
+    color: black;
+}
+
+.default-input-blade {
+    background-color: white;
+    color: black;
+}
+
+.default-items-blade {
+    background-color: white;
+    color: black;
+}
+
+.app {
+    border: 1px solid black;
+}
+
