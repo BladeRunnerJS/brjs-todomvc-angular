@@ -32395,8 +32395,8 @@ window.angular = require('angular');
 
 
 // these variables should not be used directly but accessed via the 'br.app-meta-service' instead
-window.$BRJS_APP_VERSION = '1412091035438';
-window.$BRJS_VERSIONED_BUNDLE_PATH = 'v/1412091035438';
+window.$BRJS_APP_VERSION = '1412091068976';
+window.$BRJS_VERSIONED_BUNDLE_PATH = 'v/1412091068976';
 window.$BRJS_LOCALE_COOKIE_NAME = 'BRJS.LOCALE';
 window.$BRJS_APP_LOCALES = {'en':true};
 
